@@ -1,0 +1,29 @@
+<style>
+  .playList-row {
+    border-bottom: 2px solid transparent;
+  }
+</style>
+<div class="row lg-1">
+  <div class="col-xs">
+    <h4>PlayLista</h4>
+
+    <LS-playlists-list [selected]="selected" (selected)=" select($event) " [playLists]="playLists"></LS-playlists-list>
+
+    <div class="form-group">
+      <button class="btn btn-success float-xs-right" (click)="createNew($event)">Nowa PlayLista</button>
+    </div>
+  </div>
+
+  <div class="col-xs">
+
+    <div [ngSwitch]="mode">
+
+      <LS-content-card title="PlayLista" content="Wybierz PlayListę!" *ngSwitchDefault></LS-content-card>
+      
+      <LS-playlist-detail [playList]="selected" (editplaylist)="edit($event)" *ngSwitchCase="'selected'"></LS-playlist-detail>
+
+      <LS-play-list-form [playList]="selected" *ngSwitchCase="'edit'"></LS-play-list-form>
+
+    </div>
+  </div>
+</div>
