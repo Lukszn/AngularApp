@@ -18,11 +18,19 @@
 
     <div [ngSwitch]="mode">
 
-      <LS-content-card title="PlayLista" content="Wybierz PlayListę!" *ngSwitchDefault></LS-content-card>
-      
-      <LS-playlist-detail [playList]="selected" (editplaylist)="edit($event)" *ngSwitchCase="'selected'"></LS-playlist-detail>
+      <LS-content-card title="PlayLista" *ngSwitchDefault>
+        <p>Wybierz
+          <b>playlistę!</b>
+        </p>
+      </LS-content-card>
 
-      <LS-play-list-form [playList]="selected" *ngSwitchCase="'edit'"></LS-play-list-form>
+      <LS-content-card title="Playlista {{selected.name}}" *ngSwitchCase="'selected'">
+        <LS-playlist-detail [playList]="selected" (editplaylist)="edit($event)"></LS-playlist-detail>
+      </LS-content-card>
+
+      <LS-content-card title="Playlista {{selected.name}} - edycja" *ngSwitchCase="'edit'">
+        <LS-play-list-form [playList]="selected"></LS-play-list-form>
+      </LS-content-card>
 
     </div>
   </div>

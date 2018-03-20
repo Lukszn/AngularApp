@@ -3,12 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'LS-play-list-form',
   template: `
-  <div class="card">
-  <div class="card-block">
-    <h4 class="card-title">PlayLista</h4>
-    <p class="card-text">Opis:</p>
-  </div>
-  <div class="card-block">
+  <div>
     <div class="form-group">
       <label>Nazwa:</label>
       <input type="text" [(ngModel)]="playList.name" class="form-control">
@@ -30,7 +25,7 @@ import { Component, OnInit, Input } from '@angular/core';
       <button class="btn btn-success float-xs-right" (click)="save($event)">Zapisz</button>
     </div>
   </div>
-</div>
+
   `,
   styles: []
 })
