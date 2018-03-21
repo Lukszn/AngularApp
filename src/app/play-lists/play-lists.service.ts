@@ -1,29 +1,38 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, Optional } from '@angular/core';
 
 @Injectable()
 export class PlayListsService {
 
-  playLists = [
-    {
-      id: 2,
-      name: 'Hip-Hop Gratest Hits',
-      tracks: 23,
-      color: '#0000FF',
-      favourite: false,
-    },
-    {
-      id: 1,
-      name: 'The best of LS',
-      tracks: 21,
-      color: '#FF0000',
-      favourite: true,
-    }
-  ]
+  constructor(@Optional() @Inject('PlayListsData') playListsData) {
+    this.playLists = playListsData === null ? this.playLists : playListsData;
+   }
 
-  getPlayLists(){
-    return this.playLists;
+  playLists = [ ]
+
+  savePlayList(playList) {
+    if (playList.id) {
+      let index = this.playLists.findIndex((old_playList) => (
+        old_playList.id === playList.id
+      ))
+      this.playLists.splice(index, 1, playList)
+    } else {
+      playList.id = Date.now();
+      this.playLists.push(playList);
+    }
   }
 
-  constructor() { }
+  createPlayList() {
+    var newPlayList = {
+      name: '',
+      tracks: 0,
+      color: '#FF0000',
+      favourite: false
+    };
+    return Object.assign({}, newPlayList);
+  }
+
+  getPlayLists() {
+    return this.playLists;
+  }
 
 }

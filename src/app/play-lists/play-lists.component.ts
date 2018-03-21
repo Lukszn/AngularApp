@@ -8,28 +8,25 @@ import { PlayListsService } from './play-lists.service';
 })
 export class PlayListsComponent implements OnInit {
 
-  
 
-  constructor(public playListsService:PlayListsService) {
-    this.playLists = this.playListsService.getPlayLists();
-   }
-  
-    ngOnInit() {
-    }
-
-  selected = null;
-
-  edited = {
-
+  constructor(private playListsService: PlayListsService) {
   }
-
-  mode = "none";
 
   playLists = []
 
+  ngOnInit() {
+    this.playLists = this.playListsService.getPlayLists();
+  }
+
+  selected = null;
+
+  edited = {}
+
+  mode = "none";
+
   select(playList) {
     if (playList !== this.selected)
-      this.mode = "selected";
+    this.mode = "selected";
     this.selected = playList;
   }
 
@@ -40,15 +37,10 @@ export class PlayListsComponent implements OnInit {
   }
 
   createNew() {
-    var newPlaylist = {
-      name: '',
-      tracks: 0,
-      color: '#FF0000',
-      favourite: false
-    };
     this.mode = "edit";
-    this.selected = newPlaylist;
-    this.edited = Object.assign({}, newPlaylist);
+    let newPlayList = this.playListsService.createPlayList()
+    this.selected = newPlayList;
+    this.edited = newPlayList;
   }
 
   getPlaylistStyle(playList) {
@@ -59,19 +51,7 @@ export class PlayListsComponent implements OnInit {
   }
 
   save(playList) {
-    if (playList.id) {
-      let index = this.playLists.findIndex((old_playList)=>(
-        old_playList.id === playList.id
-      ))
-      this.playLists.splice(index,1,playList)
-    } else {
-      playList.id = Date.now();
-      this.playLists.push(playList);
-    }
+    this.playListsService.savePlayList(playList);
   }
-  counter = 0;
-  counter2 = 0;
 
-
-  
 }

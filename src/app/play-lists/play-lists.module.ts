@@ -9,6 +9,8 @@ import { PlaylistsListComponent } from './playlists-list.component';
 import { PlaylistDetailComponent } from './playlist-detail.component';
 import { PlayListsService } from './play-lists.service';
 
+import playListsData from './play-lists.data';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +30,12 @@ import { PlayListsService } from './play-lists.service';
 
   providers:[
     // {provide: PlayListsService, useClass: PlayListsService//lub inna klasa ktora rozszerza PlayListsService}
-    PlayListsService
+    PlayListsService,
+    {provide: 'PlayListsData', useValue: playListsData},
+    // {provide: 'PlayListsData', useFactory: (data)=>{
+    //   data.push({id:3, name:'Test', color:'red', favourite:'false', tracks:'16'})
+    //   return data;
+    // }, deps:['PlayListsExampleData']}
   ]
 })
 export class PlayListsModule { }
