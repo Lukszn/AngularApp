@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { PlayListsService } from './play-lists.service';
 
 @Component({
   selector: 'LS-play-lists',
@@ -6,6 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./play-lists.component.css']
 })
 export class PlayListsComponent implements OnInit {
+
+  
+
+  constructor(public playListsService:PlayListsService) {
+    this.playLists = this.playListsService.getPlayLists();
+   }
+  
+    ngOnInit() {
+    }
 
   selected = null;
 
@@ -15,22 +25,7 @@ export class PlayListsComponent implements OnInit {
 
   mode = "none";
 
-  playLists = [
-    {
-      id: 2,
-      name: 'Hip-Hop Gratest Hits',
-      tracks: 23,
-      color: '#0000FF',
-      favourite: false,
-    },
-    {
-      id: 1,
-      name: 'The best of LS',
-      tracks: 21,
-      color: '#FF0000',
-      favourite: true,
-    }
-  ]
+  playLists = []
 
   select(playList) {
     if (playList !== this.selected)
@@ -78,9 +73,5 @@ export class PlayListsComponent implements OnInit {
   counter2 = 0;
 
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  
 }

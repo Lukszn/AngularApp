@@ -7,7 +7,7 @@ import { ContentCardComponent } from './content-card.component';
 import { PlayListFormComponent } from './play-list-form.component';
 import { PlaylistsListComponent } from './playlists-list.component';
 import { PlaylistDetailComponent } from './playlist-detail.component';
-
+import { PlayListsService } from './play-lists.service';
 
 @NgModule({
   imports: [
@@ -24,6 +24,11 @@ import { PlaylistDetailComponent } from './playlist-detail.component';
   ],
   exports: [
     PlayListsComponent
+  ],
+
+  providers:[
+    // {provide: PlayListsService, useClass: PlayListsService//lub inna klasa ktora rozszerza PlayListsService}
+    PlayListsService
   ]
 })
 export class PlayListsModule { }
