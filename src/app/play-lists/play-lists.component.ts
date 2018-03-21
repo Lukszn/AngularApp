@@ -1,10 +1,17 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { PlayListsService } from './play-lists.service';
 
+import playListsData from './play-lists.data';
+
 @Component({
   selector: 'LS-play-lists',
   templateUrl: './play-lists.component.html',
-  styleUrls: ['./play-lists.component.css']
+  styleUrls: ['./play-lists.component.css'],
+  providers: [
+    PlayListsService,
+    {provide: 'PlayListsData', useValue: playListsData},
+  ]
+
 })
 export class PlayListsComponent implements OnInit {
 
