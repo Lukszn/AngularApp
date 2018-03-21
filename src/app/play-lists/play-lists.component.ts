@@ -8,60 +8,75 @@ import { Component, OnInit } from '@angular/core';
 export class PlayListsComponent implements OnInit {
 
   selected = null;
-  
-    edited = {
-  
+
+  edited = {
+
+  }
+
+  mode = "none";
+
+  playLists = [
+    {
+      id: 2,
+      name: 'Hip-Hop Gratest Hits',
+      tracks: 23,
+      color: '#0000FF',
+      favourite: false,
+    },
+    {
+      id: 1,
+      name: 'The best of LS',
+      tracks: 21,
+      color: '#FF0000',
+      favourite: true,
     }
-  
-    mode = "none";
-  
-    playLists = [
-      {
-        name: 'Hip-Hop Gratest Hits',
-        tracks: 23,
-        color: '#0000FF',
-        favourite: false,
-      },
-      {
-        name: 'The best of LS',
-        tracks: 21,
-        color: '#FF0000',
-        favourite: true,
-      }
-    ]
-  
-    select(playList) {
-      if(playList !== this.selected)
+  ]
+
+  select(playList) {
+    if (playList !== this.selected)
       this.mode = "selected";
-      this.selected = playList;
+    this.selected = playList;
+  }
+
+  edit(playList) {
+    this.mode = "edit";
+    this.edited = Object.assign({}, playList);
+    this.selected = playList;
+  }
+
+  createNew() {
+    var newPlaylist = {
+      name: '',
+      tracks: 0,
+      color: '#FF0000',
+      favourite: false
+    };
+    this.mode = "edit";
+    this.selected = newPlaylist;
+    this.edited = Object.assign({}, newPlaylist);
+  }
+
+  getPlaylistStyle(playList) {
+    return {
+      borderBottomColor: playList.color,
+      borderBottomWidth: '4px'
     }
-  
-    edit(playList) {
-      this.mode = "edit";
-      this.edited = playList;
-      this.selected = playList;
+  }
+
+  save(playList) {
+    if (playList.id) {
+      let index = this.playLists.findIndex((old_playList)=>(
+        old_playList.id === playList.id
+      ))
+      this.playLists.splice(index,1,playList)
+    } else {
+      playList.id = Date.now();
+      this.playLists.push(playList);
     }
-  
-    createNew() {
-      var newPlaylist = {};
-      this.mode = "edit";
-      this.selected = newPlaylist;
-      this.edited = newPlaylist;
-    }
-  
-    getPlaylistStyle(playList) {
-      return {
-        borderBottomColor: playList.color,
-        borderBottomWidth: '4px'
-      }
-    }
-  
-    save(event) {
-      console.log("zapisano", event)
-    }
-    counter = 0;
-    counter2 = 0;
-  
+  }
+  counter = 0;
+  counter2 = 0;
+
 
   constructor() { }
 

@@ -29,7 +29,7 @@
       </LS-content-card>
 
       <LS-content-card title="Playlista {{selected.name}} - edycja" *ngSwitchCase="'edit'">
-        <LS-play-list-form [playList]="selected"></LS-play-list-form>
+        <LS-play-list-form [playList]="edited" (saved)="save($event)"></LS-play-list-form>
       </LS-content-card>
 
     </div>
